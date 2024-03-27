@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\Models\Role;
 
 class RoleService
@@ -10,7 +11,7 @@ class RoleService
     protected $role;
 
 
-    public function __construct(Role $role, $object = null)
+    public function __construct(Role $role = null, $object = null)
     {
         $this->object = $object;
         $this->role = $role;
@@ -37,5 +38,12 @@ class RoleService
         $permissionNames = $allPermissions->pluck('id', 'name');
         $count = $this->role->permissions->count();
         return ['permissionNames' => $permissionNames, 'permissionCounts' => $count];
+    }
+
+    public function createRole(): void
+    {
+        Role::create($this->object);
+        Artisan::call('cache:forget spatie.permission.cache');
+        Artisan::call('cache:clear');
     }
 }

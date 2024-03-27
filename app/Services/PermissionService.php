@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\Models\Permission;
 
 class PermissionService
@@ -25,7 +26,7 @@ class PermissionService
 
     public function giveUserRoles() : void
     {
-        $this->user->assignRoles($this->object['roles']);
+        $this->user->assignRole($this->object['roles']);
     }
 
     public function removeUserRoles() : void
@@ -41,11 +42,6 @@ class PermissionService
     public function giveUserPermissions() : void
     {
         $this->user->givePermissionTo($this->object['permissions']);
-    }
-
-    public function giveRolePermissions() : void
-    {
-        $this->object['role']->givePermissionTo($this->object['permissions']);
     }
 
     public function revokePermissions() : void
@@ -76,5 +72,8 @@ class PermissionService
     public function createPermission() : void
     {
         Permission::create($this->object);
+        //this is important to see the new permissions
+        Artisan::call('cache:forget spatie.permission.cache');
+        Artisan::call('cache:clear');
     }
 }
