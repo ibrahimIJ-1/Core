@@ -45,7 +45,7 @@ onMounted(() => {
 
     register({
         channelName: `user.${user.id}`,
-        channelEvent: 'PrivateEvent',
+        channelEvent: 'UserEvent',
         callback: () => {
             alert('User sent 🚀')
         }
