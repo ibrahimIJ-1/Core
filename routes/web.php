@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -38,6 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::prefix('roles')->group(function () {
         Route::post('/createRole', [RoleController::class, 'createRole'])->name('createRole');
         Route::post('/setRolePermisson', [RoleController::class, 'setRolePermisson'])->name('setRolePermisson');
+    });
+
+    Route::prefix('notification')->group(function () {
+        Route::post('/sendNotification', [NotificationController::class, 'sendNotification'])->name('sendNotification');
     });
 });
 

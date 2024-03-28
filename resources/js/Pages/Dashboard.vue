@@ -1,4 +1,5 @@
 <template>
+
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
@@ -10,7 +11,10 @@
             <div class="mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">You're logged in!</div>
-                    <Button type="primary" :callback="sendNotification" text="Send"/>
+                    <form @submit.prevent="sendNotification">
+                        <input type="text" v-model="form.name">
+                        <button type="submit" :disabled="form.processing">Send</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -19,20 +23,43 @@
 
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, usePage } from '@inertiajs/vue3';
+import { Head, usePage, useForm } from '@inertiajs/vue3';
 import Button from '@/Components/App/UI/Buttons/Button.vue';
-import {onMounted, onUnmounted} from "vue";
-const sendNotification = ()=>{
-    console.log('send');
+import { onMounted, onUnmounted } from "vue";
+import { register, unRegister } from '@/channels-manager.ts'
+
+const sendNotification = () => {
+    form.post(route('sendNotification'));
 }
 
 onMounted(() => {
-   const user = usePage().props.auth.user
+    const user = usePage().props.auth.user
 
-   window.Echo.channel(`dashboard`)
-        .listen('TestEvent', (e:any) => {
-           alert('Reverb 🚀')
-     })
+    register({
+        channelName: `dashboard`,
+        channelEvent: 'TestEvent',
+        callback: () => {
+            alert('Reverb 🚀')
+        }
+    })
+
+    register({
+        channelName: `user.${user.id}`,
+        channelEvent: 'PrivateEvent',
+        callback: () => {
+            alert('User sent 🚀')
+        }
+    })
 
 });
+
+onUnmounted(() => {
+    const user = usePage().props.auth.user
+    unRegister({ channelName: `user.${user.id}` })
+})
+
+const form = useForm({
+    name: null as string | null
+})
+
 </script>
