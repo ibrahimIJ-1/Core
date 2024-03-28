@@ -1,5 +1,5 @@
 <template>
-    <button @click="props.callback" class="border-[1px] rounded py-1 px-2 hover:bg-white hover:text-black"
+    <button @click="props.callback()" class="border-[1px] rounded py-1 px-2 hover:bg-white hover:text-black"
         :class="buttonStyles[props.type]">{{ text }}</button>
 </template>
 
@@ -12,7 +12,7 @@ const props = defineProps({
     },
     callback: {
         type: Function,
-        required: false
+        required: true
     }
 })
 

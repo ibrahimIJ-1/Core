@@ -17,9 +17,4 @@ class RoleController extends Controller
     {
         (new RoleService(Role::find(1), ['permissions' => $request->name]))->giveRolePermissions();
     }
-
-    public function setUserRole(Request $request)
-    {
-        (new RoleService(Role::find(1), ['permissions' => $request->name]))->giveRolePermissions();
-    }
 }

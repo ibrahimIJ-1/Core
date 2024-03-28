@@ -9,13 +9,15 @@
             <div class="mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <Table :headers="['name', 'email', 'permissions count', 'roles count', 'is active', 'actions']">
-                        <tr v-for="user in users.data" :key="(user as User).id" class="hover:bg-gray-200">
-                            <td>{{ (user as User).name }}</td>
-                            <td>{{ (user as User).email }}</td>
-                            <td>{{ (user as User).permissions.length }}</td>
-                            <td>{{ (user as User).roles.length }}</td>
-                            <td>{{ (user as User).isActive }}</td>
-                            <td><Button v-if="can?.users_edit" text="Edit" :callback="() => editButton((user as User).name)" type="primary" />
+                        <tr v-for="user in users?.data" :key="user.id" class="hover:bg-gray-200">
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.permissions.length }}</td>
+                            <td>{{ user.roles.length }}</td>
+                            <td>{{ user.isActive }}</td>
+                            <td>
+                                <Button v-if="can?.users_edit" text="Edit" :callback="()=>editButton(user.name)"
+                                    type="primary" />
                             </td>
                         </tr>
                     </Table>
@@ -24,7 +26,7 @@
         </div>
         <form @submit.prevent="submit">
             <input type="text" v-model="form.name">
-            <button type="submit" :disabled="form.processing">Login</button>
+            <button type="submit" :disabled="form.processing">Submit</button>
         </form>
     </AuthenticatedLayout>
 </template>
@@ -45,24 +47,30 @@ interface User {
     roles: string[];
 }
 
+interface Users{
+    data:User[];
+}
+
 const props = defineProps({
     users: {
-        type: Array,
+        type: Object as () => Users,
         required: false
     },
-    can: Array
+    can: {
+        type: Object as () => Record<string, boolean>,
+        required: true
+    }
 })
 
 const form = useForm({
-    name: null
+    name: null as string | null
 })
 
-const editButton = (name) => {
+const editButton = (name: string) => {
     console.log(name);
-
 }
 
 const submit = () => {
-    form.post(route('setUserRole'))
+    form.post(route('setUserRole'));
 }
 </script>
