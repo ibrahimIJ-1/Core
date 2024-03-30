@@ -27,9 +27,12 @@ import { Head, usePage, useForm } from '@inertiajs/vue3';
 import Button from '@/Components/App/UI/Buttons/Button.vue';
 import { onMounted, onUnmounted } from "vue";
 import { register, unRegister } from '@/channels-manager.ts'
+import { showErrorDialog, showSuccessNotification } from "@/event-bus.ts";
 
 const sendNotification = () => {
     form.post(route('sendNotification'));
+    showSuccessNotification('User sent 🚀')
+    showErrorDialog('error')
 }
 
 onMounted(() => {
@@ -56,6 +59,7 @@ onMounted(() => {
 onUnmounted(() => {
     const user = usePage().props.auth.user
     unRegister({ channelName: `user.${user.id}` })
+    unRegister({ channelName: `dashboard` })
 })
 
 const form = useForm({

@@ -6,6 +6,8 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import Notification from "@/Components/Notification.vue";
+import ErrorDialog from "@/Components/ErrorDialog.vue";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -133,4 +135,6 @@ const showingNavigationDropdown = ref(false);
             </div>
         </div>
     </div>
+    <ErrorDialog />
+    <Notification />
 </template>
