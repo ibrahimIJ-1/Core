@@ -16,8 +16,6 @@ const props = defineProps({
     }
 })
 
-
-
 const buttonStyles = {
     primary: "border-sky-500 bg-sky-500 text-white",
     secondary: "border-gray-500 bg-gray-500 text-white",

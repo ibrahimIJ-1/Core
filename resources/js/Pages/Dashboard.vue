@@ -32,7 +32,7 @@ import { showErrorDialog, showSuccessNotification } from "@/event-bus.ts";
 const sendNotification = () => {
     form.post(route('sendNotification'));
     showSuccessNotification('User sent 🚀')
-    showErrorDialog('error')
+    showErrorDialog('Erro Happened')
 }
 
 onMounted(() => {

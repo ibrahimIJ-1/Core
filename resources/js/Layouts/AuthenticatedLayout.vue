@@ -8,8 +8,14 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import Notification from "@/Components/Notification.vue";
 import ErrorDialog from "@/Components/ErrorDialog.vue";
+import { loadLanguageAsync } from 'laravel-vue-i18n';
 
 const showingNavigationDropdown = ref(false);
+
+const changeLocale = async (event) => {
+    await loadLanguageAsync(event.target.value)
+}
+
 </script>
 
 <template>
@@ -25,6 +31,16 @@ const showingNavigationDropdown = ref(false);
                                 <Link :href="route('dashboard')">
                                 <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
+                            </div>
+                            <div class="flex items-center justify-end w-full sm:ms-6">
+                                <div class="ms-3 relative">
+                                    <select
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        v-model="locale" @change="changeLocale">
+                                        <option value="en">English</option>
+                                        <option value="ar">Arabic</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="hidden sm:flex sm:items-center sm:ms-6">
                                 <!-- Settings Dropdown -->
@@ -47,10 +63,34 @@ const showingNavigationDropdown = ref(false);
                                         </template>
 
                                         <template #content>
-                                            <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
+                                            <DropdownLink :href="route('profile.edit')"> {{ $t('Profile') }}
+                                            </DropdownLink>
                                             <DropdownLink :href="route('logout')" method="post" as="button">
                                                 Log Out
                                             </DropdownLink>
+                                        </template>
+                                    </Dropdown>
+                                </div>
+                            </div>
+
+                            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                                <!-- Settings Dropdown -->
+                                <div class="ms-3 relative">
+                                    <Dropdown align="right" width="48">
+                                        <template #trigger>
+                                            <span class="inline-flex rounded-md">
+                                                <button type="button"
+                                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                                    {{ $page.props.auth.user.name }}
+
+                                                    <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                            </span>
                                         </template>
                                     </Dropdown>
                                 </div>
