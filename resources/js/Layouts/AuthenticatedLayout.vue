@@ -110,6 +110,11 @@ const changeLocale = async (event) => {
                                 Users
                             </NavLink>
                         </div>
+                        <div class="my-2 w-[100%] hover:bg-gray-200">
+                            <NavLink :href="route('state.index')" :active="route().current('state.index')">
+                                States
+                            </NavLink>
+                        </div>
                     </div>
                 </div>
 
