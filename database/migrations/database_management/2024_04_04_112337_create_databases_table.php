@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('database_name');
             $table->date('last_restore')->nullable();
             $table->integer('restore_count')->default(0);
+            $table->boolean('is_selected')->default(false);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('restored_by')->nullable();
             $table->softDeletes();
