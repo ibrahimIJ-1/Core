@@ -33,11 +33,10 @@
 
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import Table from '@/Components/App/UI/Table.vue';
-import Button from '@/Components/App/UI/Buttons/Button.vue';
+import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
+import Table from '../../Components/App/UI/Table.vue';
+import Button from '../../Components/App/UI/Buttons/Button.vue'
 import { useForm } from "@inertiajs/vue3"
-
 interface User {
     id: number;
     name: string;

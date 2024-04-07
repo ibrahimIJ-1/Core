@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import ApplicationLogo from '../Components/ApplicationLogo.vue';
+import Dropdown from '../Components/Dropdown.vue';
+import DropdownLink from '../Components/DropdownLink.vue';
+import NavLink from '../Components/NavLink.vue';
+import ResponsiveNavLink from '../Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
-import Notification from "@/Components/Notification.vue";
-import ErrorDialog from "@/Components/ErrorDialog.vue";
+import Notification from "../Components/Notification.vue";
+import ErrorDialog from "../Components/ErrorDialog.vue";
 import { getActiveLanguage, loadLanguageAsync } from 'laravel-vue-i18n';
 
 const showingNavigationDropdown = ref(false);
@@ -15,7 +15,7 @@ const locale = ref('en')
 onMounted(() => {
     locale.value = getActiveLanguage()
 })
-const changeLocale = async (event) => {
+const changeLocale = async (event:any) => {
     await loadLanguageAsync(event.target.value)
 }
 
@@ -108,11 +108,6 @@ const changeLocale = async (event) => {
                         <div class="my-2 w-[100%] hover:bg-gray-200">
                             <NavLink :href="route('user.index')" :active="route().current('user.index')">
                                 Users
-                            </NavLink>
-                        </div>
-                        <div class="my-2 w-[100%] hover:bg-gray-200">
-                            <NavLink :href="route('state.index')" :active="route().current('state.index')">
-                                States
                             </NavLink>
                         </div>
                     </div>

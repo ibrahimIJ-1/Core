@@ -4,11 +4,13 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from 'vue'
+
 const props = defineProps({
     text: String,
-    type:{
-        type:String,
-        required:true
+    type: {
+        type: String,
+        required: true
     },
     callback: {
         type: Function,
@@ -16,7 +18,11 @@ const props = defineProps({
     }
 })
 
-const buttonStyles = {
+interface ButtonStyles {
+    [key: string]: string;
+}
+
+const buttonStyles: ButtonStyles = {
     primary: "border-sky-500 bg-sky-500 text-white",
     secondary: "border-gray-500 bg-gray-500 text-white",
     danger: "border-rose-500 bg-red-500 text-white",

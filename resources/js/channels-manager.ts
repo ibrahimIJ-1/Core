@@ -5,13 +5,13 @@ interface Channel {
 }
 
 export const register = ({ channelName, channelEvent, callback }: Channel) => {
-    window.Echo.channel(channelName).listen(channelEvent, (e: any) => {
+    window.Echo.channel(channelName).listen(channelEvent??'', (e: any) => {
         callback ? callback() : null;
     });
 };
 
 export const registerPrivate = ({ channelName, channelEvent, callback }: Channel) => {
-    window.Echo.private(channelName).listen(channelEvent, (e: any) => {
+    window.Echo.private(channelName).listen(channelEvent??'', (e: any) => {
         callback ? callback() : null;
     });
 };

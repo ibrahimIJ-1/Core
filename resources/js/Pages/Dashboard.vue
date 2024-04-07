@@ -22,17 +22,17 @@
 </template>
 
 <script setup lang="ts">
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AuthenticatedLayout from '../Layouts/AuthenticatedLayout.vue';
 import { Head, usePage, useForm } from '@inertiajs/vue3';
-import Button from '@/Components/App/UI/Buttons/Button.vue';
+import Button from '../Components/App/UI/Buttons/Button.vue';
 import { onMounted, onUnmounted } from "vue";
-import { register, unRegister } from '@/channels-manager.ts'
-import { showErrorDialog, showSuccessNotification } from "@/event-bus.ts";
+import { register, unRegister } from '../channels-manager'
+import { showErrorDialog, showSuccessNotification } from "../event-bus";
 
 const sendNotification = () => {
     form.post(route('sendNotification'));
-    showSuccessNotification('User sent 🚀')
-    showErrorDialog('Erro Happened')
+    showSuccessNotification({message:'User sent 🚀'})
+    showErrorDialog({message:'Erro Happened'})
 }
 
 onMounted(() => {

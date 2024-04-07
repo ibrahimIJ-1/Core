@@ -19,7 +19,7 @@
 <script setup lang="ts">
 // Imports
 import {onMounted, ref} from "vue";
-import {emitter, SHOW_NOTIFICATION} from "@/event-bus.ts";
+import {emitter, SHOW_NOTIFICATION} from "../event-bus";
 
 // Uses
 
@@ -43,8 +43,8 @@ function close() {
 
 // Hooks
 onMounted(() => {
-    let timeout;
-    emitter.on(SHOW_NOTIFICATION, ({type: t, message: msg}) => {
+    let timeout:number;
+    emitter.on(SHOW_NOTIFICATION, ({type: t, message: msg}: { type: string; message: string }) => {
         show.value = true;
         type.value = t;
         message.value = msg;
